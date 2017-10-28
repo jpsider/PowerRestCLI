@@ -6,9 +6,9 @@ function New-rVIHeader
 	.EXAMPLE
         New-rViHeaders
 	.EXAMPLE
-        New-rViHeaders -Credential $Credentials
+        New-rViHeader -Credential $Credentials
     .EXAMPLE
-        $script:headers = New-rViHeaders
+        $script:header = New-rViHeaders
 	.NOTES
 		No notes at this time.
     #>

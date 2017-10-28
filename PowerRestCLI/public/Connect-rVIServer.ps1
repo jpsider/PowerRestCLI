@@ -12,11 +12,13 @@ function Connect-rVIServer
     .PARAMETER Credential
         A valid Credential set is required
 	.EXAMPLE
-        New-rVisession -vCenter $vCenter -Credential $Credentials
+        Connect-rVIServer -vCenter $vCenter -Credential $Credentials
 	.EXAMPLE
-        New-rVisession -vCenter $vCenter -user "administrator@corp.local" -password "VMware1!"
+        Connect-rVIServer -vCenter $vCenter -user "administrator@corp.local" -password (ConvertTo-SecureString "VMware1!" -AsPlainText -force)
+	.EXAMPLE
+        Connect-rVIServer -vCenter $vCenter -user "administrator@corp.local" -password (read-host -AsSecureString)
     .EXAMPLE
-        $session = New-rVisession -vCenter $vCenter
+        Connect-rVIServer -vCenter 192.168.2.220
 	.NOTES
         Returns a Session to the powershell console, If the variable is global it does not need
         to be catpured in a variable.
@@ -44,18 +46,18 @@ function Connect-rVIServer
         # Determine the credential type to create appropriate header.
         if ($PSCmdlet.ParameterSetName -eq 'Credential') 
         {
-            $script:headers = New-rViHeaders -Credentials $Credential
+            $script:headers = New-rViHeader -Credential $Credential
         }
         elseif ($PSCmdlet.ParameterSetName -eq 'PlainText') 
         {
             $Credential = New-Object System.Management.Automation.PSCredential -ArgumentList ($user, $Password)
-            $script:headers = New-rViHeaders -Credential $Credential
+            $script:headers = New-rViHeader -Credential $Credential
         }
         else 
         {
             # Prompt user for vCenter Username and password.
             $Credential = Get-Credential
-            $script:headers = New-rViHeaders
+            $script:headers = New-rViHeader
         }     
         # Perform a Rest call and retrieve a token.
         $script:session = New-rVisession -headers $script:headers -vCenter $vCenter
