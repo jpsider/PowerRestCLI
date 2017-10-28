@@ -1,4 +1,4 @@
-function Invoke-ConnectionVariables
+function Invoke-ConnectionVariableSet
 {
     <#
 	.DESCRIPTION

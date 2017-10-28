@@ -1,10 +1,10 @@
 # PowerRestCLI  
 
-Powershell Module providing Examples that consume vSphere Rest API
+Powershell Module providing Examples that consume vSphere Rest API  
 
-## Build Status
+## Build Status  
 
-![Build status](https://ci.appveyor.com/api/projects/status/github/jpsider/PowerRestCLI?branch=master&svg=true)
+![Build status](https://ci.appveyor.com/api/projects/status/github/jpsider/PowerRestCLI?branch=master&svg=true)  
 
 ## Notice  
 
@@ -29,14 +29,14 @@ Install the Module from the PowerShell Gallery
     Connect-rVIServer -vCenter $vCenter  
         Enter the Username and password. Or  
     Connect-rVIServer -vCenter $vCenter -Credential $Creds  
-    Connect-rVIServer -vCenter $vCenter -User Administrator@corp.local -Password VMware1!  
+    Connect-rVIServer -vCenter $vCenter -User Administrator@corp.local -Password (ConvertTo-SecureString "VMware1!" -AsPlainText -force)  
 
 ### Pull back VM information  
     Get-rVM  
         No filter options at this time.  
 
 While the format is slightly different (mainly the column headers) It retrieves the same
-    information from vCenter.
+    information from vCenter.  
 
 ### PowerRestCLI output
     name                              power_state cpu_count memory_size_MiB  
@@ -61,6 +61,5 @@ Thats it for the first commit. I'm hoping to get some feedback to see if this is
 
 For more information  
 
-* [github.com/jpsider/PowerRestCLI](https://github.com/vmware/vsphere-automation-sdk-rest/tree/master/samples/PowerRestCLI)  
 * [jpsider.github.io](https://jpsider.github.io)  
 * [BLOG Invoke-Automation](http://invoke-automation.blog)  
