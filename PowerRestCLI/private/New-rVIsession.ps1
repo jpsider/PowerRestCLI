@@ -8,11 +8,15 @@ function New-rVIsession
     .PARAMETER Headers
         Valid Headers need to passed in.
     .EXAMPLE
-        $global:session = New-rVisession -headers $headers -vCenter $vCenter
+        $script:session = New-rVisession -headers $headers -vCenter $vCenter
 	.NOTES
 		No Notes.
     #>
-    [CmdletBinding()]
+    [CmdletBinding(
+        SupportsShouldProcess = $true,
+        ConfirmImpact = "Low"
+    )]
+    [OutputType([Hashtable])]
     param(
         [Parameter(Mandatory = $false)]
         [system.object]$headers,
@@ -21,11 +25,14 @@ function New-rVIsession
     )    
     try 
     {
-        # Perform Rest call to create session.
-        $ReturnData = Invoke-WebRequest -Uri https://$vCenter/rest/com/vmware/cis/session -Method Post -Headers $headers -UseBasicParsing
-        $token = (ConvertFrom-Json $ReturnData.Content).value
-        $global:session = @{'vmware-api-session-id' = $token}
-        return $global:session
+        if ($pscmdlet.ShouldProcess("Creating Session."))
+        { 
+            # Perform Rest call to create session.
+            $ReturnData = Invoke-WebRequest -Uri https://$vCenter/rest/com/vmware/cis/session -Method Post -Headers $headers -UseBasicParsing
+            $token = (ConvertFrom-Json $ReturnData.Content).value
+            $script:session = @{'vmware-api-session-id' = $token}
+            return $script:session
+        }
     }
     Catch
     {

@@ -1,4 +1,5 @@
-function Connect-rVIServer {
+function Connect-rVIServer
+{
     <#
 	.DESCRIPTION
 		Retrieve a Session token from vSphere API server.
@@ -21,14 +22,14 @@ function Connect-rVIServer {
         [Parameter(Mandatory = $true, ParameterSetName = 'NoCreds')]
         [string]$vCenter,
         [Parameter(Mandatory = $true,
-        ParameterSetName = 'Credential')]
+            ParameterSetName = 'Credential')]
         [System.Management.Automation.PSCredential]$Credential,
         [Parameter(Mandatory = $true,
-        ParameterSetName = 'PlainText')]
+            ParameterSetName = 'PlainText')]
         [string]$User,
         [Parameter(Mandatory = $true,
-        ParameterSetName = 'PlainText')]
-        [string]$StrPwd        
+            ParameterSetName = 'PlainText')]
+        [System.Security.SecureString]$Password        
     )  
     try 
     {
@@ -37,22 +38,21 @@ function Connect-rVIServer {
         # Determine the credential type to create appropriate header.
         if ($PSCmdlet.ParameterSetName -eq 'Credential') 
         {
-            $global:headers = New-rViHeaders -Credentials $Credential
+            $script:headers = New-rViHeaders -Credentials $Credential
         }
         elseif ($PSCmdlet.ParameterSetName -eq 'PlainText') 
         {
-            $SecurePassword = ConvertTo-SecureString -String $StrPwd -AsPlainText -Force
-            $Credential = New-Object System.Management.Automation.PSCredential -ArgumentList ($user, $SecurePassword)
-            $global:headers = New-rViHeaders -Credential $Credential
+            $Credential = New-Object System.Management.Automation.PSCredential -ArgumentList ($user, $Password)
+            $script:headers = New-rViHeaders -Credential $Credential
         }
         else 
         {
             # Prompt user for vCenter Username and password.
             $Credential = Get-Credential
-            $global:headers = New-rViHeaders
+            $script:headers = New-rViHeaders
         }     
         # Perform a Rest call and retrieve a token.
-        $global:session = New-rVisession -headers $global:headers -vCenter $vCenter
+        $script:session = New-rVisession -headers $script:headers -vCenter $vCenter
         $User = $Credential.UserName
         $vCenterReturn = New-Object -TypeName PSObject
         $vCenterReturn | Add-Member -MemberType NoteProperty -Name Name -Value $vCenter 

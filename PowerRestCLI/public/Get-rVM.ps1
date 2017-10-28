@@ -19,7 +19,7 @@ function Get-rVM
     try 
     {
         # Perform RestAPI call to vCenter to retrieve VM data.
-        $ReturnData = Invoke-WebRequest -Uri https://$global:vCenter/rest/vcenter/vm -Method Get -Headers $global:session -UseBasicParsing
+        $ReturnData = Invoke-WebRequest -Uri https://$script:vCenter/rest/vcenter/vm -Method Get -Headers $script:session -UseBasicParsing
         $vms = (ConvertFrom-Json $ReturnData.Content).value
         $mydata = $vms | Format-Table name, Power_State, cpu_count, memory_size_MiB -AutoSize
         return $mydata    
