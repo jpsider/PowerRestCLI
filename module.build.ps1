@@ -53,33 +53,32 @@ Task CopyToOutput {
         ForEach-Object { "  Create [.{0}]" -f $_.fullname.replace($PSScriptRoot, '')}
 
     Get-ChildItem $source -Directory | 
-        #where name -NotIn $imports | 
-    Copy-Item -Destination $Destination -Recurse -Force -PassThru | 
+        where name -NotIn $imports | 
+        Copy-Item -Destination $Destination -Recurse -Force -PassThru | 
         ForEach-Object { "  Create [.{0}]" -f $_.fullname.replace($PSScriptRoot, '')}
 }
 
-Task BuildPSM1 -Inputs (Get-Content $ModulePath) -Outputs $ModulePath {
+Task BuildPSM1 -Inputs (Get-Item "$source\*\*.ps1") -Outputs $ModulePath {
 
-    #[System.Text.StringBuilder]$stringbuilder = [System.Text.StringBuilder]::new()    
-    #foreach ($folder in $imports )
-    #{
-    #    [void]$stringbuilder.AppendLine( "Write-Verbose 'Importing from [$Source\$folder]'" )
-    #    if (Test-Path "$source\$folder")
-    #    {
-    #        $fileList = Get-ChildItem "$source\$folder\*.ps1" | Where Name -NotLike '*.Tests.ps1'
-    #        foreach ($file in $fileList)
-    #        {
-    #            $shortName = $file.fullname.replace($PSScriptRoot, '')
-    #            Write-Output "  Importing [.$shortName]"
-    #            [void]$stringbuilder.AppendLine( "# .$shortName" ) 
-    #            [void]$stringbuilder.AppendLine( [System.IO.File]::ReadAllText($file.fullname) )
-    #        }
-    #    }
-    #}
-    #
-    #Write-Output "  Creating module [$ModulePath]"
-    #Set-Content -Path  $ModulePath -Value $stringbuilder.ToString() 
-    Set-Content -Path  $ModulePath -Value $ModulePath 
+    [System.Text.StringBuilder]$stringbuilder = [System.Text.StringBuilder]::new()    
+    foreach ($folder in $imports )
+    {
+        [void]$stringbuilder.AppendLine( "Write-Verbose 'Importing from [$Source\$folder]'" )
+        if (Test-Path "$source\$folder")
+        {
+            $fileList = Get-ChildItem "$source\$folder\*.ps1" | Where Name -NotLike '*.Tests.ps1'
+            foreach ($file in $fileList)
+            {
+                $shortName = $file.fullname.replace($PSScriptRoot, '')
+                Write-Output "  Importing [.$shortName]"
+                [void]$stringbuilder.AppendLine( "# .$shortName" ) 
+                [void]$stringbuilder.AppendLine( [System.IO.File]::ReadAllText($file.fullname) )
+            }
+        }
+    }
+    
+    Write-Output "  Creating module [$ModulePath]"
+    Set-Content -Path  $ModulePath -Value $stringbuilder.ToString() 
 }
 
 Task NextPSGalleryVersion -if (-Not ( Test-Path "$output\version.xml" ) ) -Before BuildPSD1 {
