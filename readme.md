@@ -20,13 +20,8 @@ See my blog post for more details on why I opted to start this project.
 
 ## Getting Started  
 
-Download the ZIP from Github
-    Edit PathToModule\public\ConnectionVariables.ps1 to match your vCenter information.
-
-Then Import the module:  
-
-    Download the files to local machine
-    Import-Module PathToModule\PowerRestCLI.psm1
+Install the Module from the PowerShell Gallery  
+    Install-Module -Name PowerRestCLI  
 
 ## Try it out
 
