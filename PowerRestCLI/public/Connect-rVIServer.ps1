@@ -5,6 +5,12 @@ function Connect-rVIServer
 		Retrieve a Session token from vSphere API server.
     .PARAMETER vCenter
         A valid vCenter IP/Name is required
+    .PARAMETER User
+        A valid vCenter User is required
+    .PARAMETER Password
+        A valid vCenter Password is required
+    .PARAMETER Credential
+        A valid Credential set is required
 	.EXAMPLE
         New-rVisession -vCenter $vCenter -Credential $Credentials
 	.EXAMPLE
