@@ -6,7 +6,7 @@ function Invoke-SSLIgnore
 	.EXAMPLE
 		Invoke-SSLIgnore
 	.NOTES
-		No additional notes.
+		No notes.
     #>
     try 
     {    
