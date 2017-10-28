@@ -33,7 +33,7 @@ Copyright = '(c) 2017 Justin Sider @jpsider jpsider@gmail.com. All rights reserv
 Description = 'Powershell Module providing Examples that consume vSphere Rest API'
 
 # Minimum version of the Windows PowerShell engine required by this module
-PowerShellVersion = '5'
+PowerShellVersion = '5.0'
 
 # Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''
