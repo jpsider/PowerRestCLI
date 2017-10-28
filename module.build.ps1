@@ -58,7 +58,7 @@ Task CopyToOutput {
         ForEach-Object { "  Create [.{0}]" -f $_.fullname.replace($PSScriptRoot, '')}
 }
 
-Task BuildPSM1 -Inputs (Get-Item "$source\*\*.ps1") -Outputs $ModulePath {
+Task BuildPSM1 -Inputs (Get-Content $ModulePath) -Outputs $ModulePath {
 
     #[System.Text.StringBuilder]$stringbuilder = [System.Text.StringBuilder]::new()    
     #foreach ($folder in $imports )
@@ -79,7 +79,7 @@ Task BuildPSM1 -Inputs (Get-Item "$source\*\*.ps1") -Outputs $ModulePath {
     #
     #Write-Output "  Creating module [$ModulePath]"
     #Set-Content -Path  $ModulePath -Value $stringbuilder.ToString() 
-    Set-Content -Path  $ModulePath -Value (Get-Content $ModulePath) 
+    Set-Content -Path  $ModulePath -Value $ModulePath 
 }
 
 Task NextPSGalleryVersion -if (-Not ( Test-Path "$output\version.xml" ) ) -Before BuildPSD1 {
