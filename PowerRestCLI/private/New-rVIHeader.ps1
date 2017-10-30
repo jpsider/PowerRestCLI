@@ -9,6 +9,8 @@ function New-rVIHeader
         New-rViHeader -Credential $Credentials
     .EXAMPLE
         $script:header = New-rViHeaders
+    .PARAMETER Credential
+        A valid Credential set is required.
 	.NOTES
 		No notes at this time.
     #>
@@ -17,11 +19,16 @@ function New-rVIHeader
         ConfirmImpact = "Low"
     )]
     [OutputType([Hashtable])]
+    [OutputType([boolean])]
     param(
         [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]$Credential
     )    
-    try 
+    begin 
+    {
+        # No pre-task
+    }
+    process
     {
         if ($pscmdlet.ShouldProcess("Creating Headers."))
         { 
@@ -30,13 +37,11 @@ function New-rVIHeader
                 'Authorization' = "Basic $auth"
             }
             return $script:headers
+        } 
+        else
+        {
+            # -WhatIf was used.
+            return $false
         }
-    }
-    Catch
-    {
-        $ErrorMessage = $_.Exception.Message
-        $FailedItem = $_.Exception.ItemName		
-        Write-Error "Error: $ErrorMessage $FailedItem"
-        BREAK			
     }    
 }

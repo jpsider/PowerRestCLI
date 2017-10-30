@@ -8,7 +8,11 @@ function Invoke-SSLIgnore
 	.NOTES
 		No notes.
     #>
-    try 
+    begin
+    {
+        # No code.
+    }
+    process 
     {    
         if (-not ([System.Management.Automation.PSTypeName]'ServerCertificateValidationCallback').Type)
         {
@@ -34,15 +38,8 @@ public class ServerCertificateValidationCallback {
 }
 "@
             Add-Type $certCallback
-        }
+        }      
         [ServerCertificateValidationCallback]::Ignore();
+        return $true
     }
-    catch
-    {
-        $ErrorMessage = $_.Exception.Message
-        $FailedItem = $_.Exception.ItemName		
-        Write-Error "Error: $ErrorMessage $FailedItem"
-        BREAK	       
-    }
-
 }

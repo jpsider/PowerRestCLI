@@ -12,4 +12,6 @@ function Invoke-ConnectionVariableSet
     [string]$script:vCenter = "192.168.2.220"
     [object]$script:headers = @()
     [object]$script:session = @()
+    return $true
+
 }

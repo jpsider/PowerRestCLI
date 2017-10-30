@@ -17,28 +17,40 @@ function New-rVIsession
         ConfirmImpact = "Low"
     )]
     [OutputType([Hashtable])]
+    [OutputType([boolean])]
     param(
         [Parameter(Mandatory = $false)]
         [system.object]$headers,
         [Parameter(Mandatory = $true)]
         [string]$vCenter
     )    
-    try 
+    begin 
+    {
+        # No Pre-Task.
+    }
+    process
     {
         if ($pscmdlet.ShouldProcess("Creating Session."))
         { 
             # Perform Rest call to create session.
-            $ReturnData = Invoke-WebRequest -Uri https://$vCenter/rest/com/vmware/cis/session -Method Post -Headers $headers -UseBasicParsing
-            $token = (ConvertFrom-Json $ReturnData.Content).value
-            $script:session = @{'vmware-api-session-id' = $token}
-            return $script:session
+            $ReturnData = Invoke-RestMethod -Uri https://$vCenter/rest/com/vmware/cis/session -Method Post -Headers $headers -UseBasicParsing
+            $token = ($ReturnData).value
+            if ($null -ne $token)
+            {
+                $script:session = @{'vmware-api-session-id' = $token}
+                return $script:session
+            }
+            else
+            {
+                # No token returned.
+                Write-Error "No token returned."
+                return $false
+            }
         }
-    }
-    Catch
-    {
-        $ErrorMessage = $_.Exception.Message
-        $FailedItem = $_.Exception.ItemName		
-        Write-Error "Error: $ErrorMessage $FailedItem"
-        BREAK			
-    }     
+        else
+        {
+            # -WhatIf was used.
+            return $false
+        }
+    }   
 }
