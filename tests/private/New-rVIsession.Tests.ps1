@@ -1,6 +1,6 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "New-rVIsession function for $moduleName" -Tags Build {
+Describe "New-rVIsession function for $moduleName"  {
     $script:vCenter = "fakevCenter"
     $script:headers = @{
         'Authorization' = "Basic $auth"

@@ -1,6 +1,6 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "Connection Variable function for $moduleName" -Tags Build {
+Describe "Connection Variable function for $moduleName"  {
     It "Should Return true." {
         Invoke-ConnectionVariableSet | Should be $true
     }

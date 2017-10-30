@@ -1,6 +1,6 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "Invoke-SSLIgnore function for $moduleName" -Tags Build {
+Describe "Invoke-SSLIgnore function for $moduleName"  {
     It "Should Return true." {
         Invoke-SSLIgnore | Should be $true
     }

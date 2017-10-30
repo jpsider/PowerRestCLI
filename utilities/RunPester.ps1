@@ -17,7 +17,7 @@ foreach ($Directory in $Directories)
         . .\PowerRestCLI\$Directory\$FileName
     }
     # Execute Pester for the Directory.
-    $results = Invoke-pester .\tests\$Directory\*.ps1 -Tag build -CodeCoverage .\PowerRestCLI\$Directory\*.ps1 -PassThru
+    $results = Invoke-pester .\tests\$Directory\*.ps1 -CodeCoverage .\PowerRestCLI\$Directory\*.ps1 -PassThru
 
     $MissedCommands = $results.CodeCoverage.NumberOfCommandsMissed
     $FailedCount = $results.FailedCount

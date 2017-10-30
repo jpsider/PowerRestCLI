@@ -1,6 +1,6 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "Connect-rVIServer function for $moduleName" -Tags Build {
+Describe "Connect-rVIServer function for $moduleName"  {
     $script:headers = @{
         'Authorization' = "Basic Auth"
     }

@@ -1,6 +1,6 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "New-rVIheader function for $moduleName" -Tags Build {
+Describe "New-rVIheader function for $moduleName"  {
     $secpasswd = ConvertTo-SecureString "PlainTextPassword" -AsPlainText -Force
     $fakeCreds = New-Object System.Management.Automation.PSCredential ("FakeUser", $secpasswd) 
     It "Should Return true." {

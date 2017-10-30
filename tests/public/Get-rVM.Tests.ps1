@@ -1,6 +1,6 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "Get-rVM function for $moduleName" -Tags Build {
+Describe "Get-rVM function for $moduleName"  {
     $script:vCenter = "fakevCenter"
     $script:session = @{'vmware-api-session-id' = 'FakeToken'}
     It "Should Return false if no data was returned." {
