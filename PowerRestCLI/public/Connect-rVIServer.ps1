@@ -4,7 +4,7 @@ function Connect-rVIServer
 	.DESCRIPTION
 		Retrieve a Session token from vSphere API server.
     .PARAMETER vCenter
-        A valid vCenter IP/Name is required
+        A valid vCenter IP/Name is required as a variable called $vCenter
     .PARAMETER User
         A valid vCenter User is required
     .PARAMETER Password
@@ -18,12 +18,13 @@ function Connect-rVIServer
 	.EXAMPLE
         Connect-rVIServer -vCenter $vCenter -user "administrator@corp.local" -password (read-host -AsSecureString)
     .EXAMPLE
-        Connect-rVIServer -vCenter 192.168.2.220
+        Connect-rVIServer -vCenter $vCenter
 	.NOTES
         Returns a Session to the powershell console, If the variable is global it does not need
         to be catpured in a variable.
     #>
     [CmdletBinding()]
+    [OutputType([boolean])]
     param(
         [Parameter(Mandatory = $true, ParameterSetName = 'Credential')]
         [Parameter(Mandatory = $true, ParameterSetName = 'PlainText')]
@@ -37,35 +38,56 @@ function Connect-rVIServer
         [string]$User,
         [Parameter(Mandatory = $true,
             ParameterSetName = 'PlainText')]
-        [System.Security.SecureString]$Password        
-    )  
-    try 
+        [System.Security.SecureString]$Password
+    )
+    try
     {
-        # Ensure the PowerShell environment is set up to ignore self signed certs.  
-        Invoke-SSLIgnore
-        # Determine the credential type to create appropriate header.
-        if ($PSCmdlet.ParameterSetName -eq 'Credential') 
+        # Ensure the PowerShell environment is set up to ignore self signed certs.
+        if (Invoke-SSLIgnore)
         {
-            $script:headers = New-rViHeader -Credential $Credential
-        }
-        elseif ($PSCmdlet.ParameterSetName -eq 'PlainText') 
-        {
-            $Credential = New-Object System.Management.Automation.PSCredential -ArgumentList ($user, $Password)
-            $script:headers = New-rViHeader -Credential $Credential
+            # SSL was ignored
         }
         else 
         {
-            # Prompt user for vCenter Username and password.
+            Write-Error "Unable to Ignore SSL."
+            return $false
+        }
+        # Determine the credential type to create appropriate header.
+        if ($PSCmdlet.ParameterSetName -eq 'NoCreds')
+        {
+            # No Credential information was presented. Prompt user for credentials.
             $Credential = Get-Credential
-            $script:headers = New-rViHeader
-        }     
+        }
+        elseif ($PSCmdlet.ParameterSetName -eq 'PlainText')
+        {
+            # User passed in Username/Password combo.
+            $Credential = New-Object System.Management.Automation.PSCredential -ArgumentList ($user, $Password)
+        }
+        else
+        {
+            # User provided Credential Variable, No action needed.
+        }
+        # Insert the Credentials into the Header
+        $script:headers = New-rViHeader -Credential $Credential
+        # Validate that the headers are not empty.
+        if ($script:headers -eq $false)
+        {
+            Write-Error "Unable to create Header."
+            return $false
+        }
         # Perform a Rest call and retrieve a token.
         $script:session = New-rVisession -headers $script:headers -vCenter $vCenter
+        if ($script:session -eq $false)
+        {
+            Write-Error "Unable to establish session."
+            return $false
+        }
         $User = $Credential.UserName
         $vCenterReturn = New-Object -TypeName PSObject
-        $vCenterReturn | Add-Member -MemberType NoteProperty -Name Name -Value $vCenter 
-        $vCenterReturn | Add-Member -MemberType NoteProperty -Name Port -Value "443" 
-        $vCenterReturn | Add-Member -MemberType NoteProperty -Name User -Value $User 
+        $vCenterReturn | Add-Member -MemberType NoteProperty -Name Name -Value $vCenter
+        $vCenterReturn | Add-Member -MemberType NoteProperty -Name Port -Value "443"
+        $vCenterReturn | Add-Member -MemberType NoteProperty -Name User -Value $User
+        # Return vCenter connection information.
         $vCenterReturn 
     }
     Catch
