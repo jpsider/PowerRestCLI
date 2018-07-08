@@ -47,7 +47,7 @@ function Connect-rVIServer
         {
             # SSL was ignored
         }
-        else 
+        else
         {
             Write-Error "Unable to Ignore SSL."
             return $false
@@ -88,13 +88,13 @@ function Connect-rVIServer
         $vCenterReturn | Add-Member -MemberType NoteProperty -Name Port -Value "443"
         $vCenterReturn | Add-Member -MemberType NoteProperty -Name User -Value $User
         # Return vCenter connection information.
-        $vCenterReturn 
+        $vCenterReturn
     }
     Catch
     {
         $ErrorMessage = $_.Exception.Message
-        $FailedItem = $_.Exception.ItemName		
+        $FailedItem = $_.Exception.ItemName
         Write-Error "Error: $ErrorMessage $FailedItem"
-        BREAK			
-    }    
+        BREAK
+    }
 }

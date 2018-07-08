@@ -23,25 +23,25 @@ function New-rVIHeader
     param(
         [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]$Credential
-    )    
-    begin 
+    )
+    begin
     {
         # No pre-task
     }
     process
     {
         if ($pscmdlet.ShouldProcess("Creating Headers."))
-        { 
+        {
             $auth = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($Credential.UserName + ':' + $Credential.GetNetworkCredential().Password))
             $script:headers = @{
                 'Authorization' = "Basic $auth"
             }
             return $script:headers
-        } 
+        }
         else
         {
             # -WhatIf was used.
             return $false
         }
-    }    
+    }
 }

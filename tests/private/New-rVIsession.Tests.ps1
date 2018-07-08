@@ -1,6 +1,10 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "New-rVIsession function for $moduleName"  {
+$here = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace 'tests', "$script:ModuleName"
+$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
+. "$here\$sut"
+
+Describe "New-rVIsession function for $moduleName" {
     $script:vCenter = "fakevCenter"
     $script:headers = @{
         'Authorization' = "Basic $auth"

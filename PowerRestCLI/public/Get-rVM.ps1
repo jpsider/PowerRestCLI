@@ -20,7 +20,7 @@ function Get-rVM
     {
         # Perform RestAPI call to vCenter to retrieve VM data.
         $ReturnData = Invoke-RestMethod -Uri https://$script:vCenter/rest/vcenter/vm -Method Get -Headers $script:session -UseBasicParsing
-    } 
+    }
     Process
     {
         # Validate there was information Returned.

@@ -1,6 +1,10 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "Get-rVM function for $moduleName"  {
+$here = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace 'tests', "$script:ModuleName"
+$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
+. "$here\$sut"
+
+Describe "Get-rVM function for $moduleName" {
     $script:vCenter = "fakevCenter"
     $script:session = @{'vmware-api-session-id' = 'FakeToken'}
     It "Should Return false if no data was returned." {

@@ -1,6 +1,18 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "Connect-rVIServer function for $moduleName"  {
+$here = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace 'tests', "$script:ModuleName"
+$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
+. "$here\$sut"
+
+$script:ModuleName = 'PowerRestCLI'
+
+function Invoke-SSLIgnore {}
+function Write-Error {}
+function Get-Credential {}
+function New-rViHeader {}
+function New-rVisession {}
+
+Describe "Connect-rVIServer function for $moduleName" {
     $script:headers = @{
         'Authorization' = "Basic Auth"
     }

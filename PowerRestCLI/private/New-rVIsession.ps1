@@ -23,15 +23,15 @@ function New-rVIsession
         [system.object]$headers,
         [Parameter(Mandatory = $true)]
         [string]$vCenter
-    )    
-    begin 
+    )
+    begin
     {
         # No Pre-Task.
     }
     process
     {
         if ($pscmdlet.ShouldProcess("Creating Session."))
-        { 
+        {
             # Perform Rest call to create session.
             $ReturnData = Invoke-RestMethod -Uri https://$vCenter/rest/com/vmware/cis/session -Method Post -Headers $headers -UseBasicParsing
             $token = ($ReturnData).value
@@ -52,5 +52,5 @@ function New-rVIsession
             # -WhatIf was used.
             return $false
         }
-    }   
+    }
 }

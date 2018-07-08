@@ -1,6 +1,10 @@
 $script:ModuleName = 'PowerRestCLI'
 
-Describe "Connection Variable function for $moduleName"  {
+$here = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace 'tests', "$script:ModuleName"
+$sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
+. "$here\$sut"
+
+Describe "Connection Variable function for $moduleName" {
     It "Should Return true." {
         Invoke-ConnectionVariableSet | Should be $true
     }
