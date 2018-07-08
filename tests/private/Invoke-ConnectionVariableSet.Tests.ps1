@@ -4,7 +4,7 @@ $here = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace 'tests', "$sc
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 
-Describe "Connection Variable function for $moduleName" {
+Describe "Connection Variable function for $moduleName" -Tags Build {
     It "Should Return true." {
         Invoke-ConnectionVariableSet | Should be $true
     }

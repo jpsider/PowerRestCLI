@@ -1,7 +1,5 @@
 # Need to import all the files first of course.
 
-$BaseDir = "C:\OPEN_PROJECTS\PowerRestCLI\PowerRestCLI"
-
 Set-Location "C:\OPEN_PROJECTS\PowerRestCLI\"
 
 $FoundError = $false

@@ -4,7 +4,7 @@ $here = (Split-Path -Parent $MyInvocation.MyCommand.Path) -replace 'tests', "$sc
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 
-Describe "Get-rVM function for $moduleName" {
+Describe "Get-rVM function for $moduleName" -Tags Build {
     $script:vCenter = "fakevCenter"
     $script:session = @{'vmware-api-session-id' = 'FakeToken'}
     It "Should Return false if no data was returned." {
