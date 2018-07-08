@@ -12,7 +12,7 @@ function Get-Credential {}
 function New-rViHeader {}
 function New-rVisession {}
 
-Describe "Connect-rVIServer function for $moduleName" {
+Describe "Connect-rVIServer function for $moduleName" -Tags Build {
     $script:headers = @{
         'Authorization' = "Basic Auth"
     }
