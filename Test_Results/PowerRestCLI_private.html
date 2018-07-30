@@ -189,7 +189,7 @@
                 <div class="col-sm-4 col-md-5 col-lg-4 right-header">
                     <h5>
                         Analyzed path :<span class="right-header-data"> C:\OPEN_PROJECTS\PowerRestCLI\PowerRestCLI\private\</span><br>
-                        Analysis date :<span class="right-header-data"> 2018-07-08 13:53:20Z</span>
+                        Analysis date :<span class="right-header-data"> 2018-07-30 17:03:48Z</span>
                     </h5>
                 </div>
             </div>
@@ -233,7 +233,7 @@
                                 <h3 class="panel-title"><i class="fa fa-arrows-v" aria-hidden="true">&nbsp;</i> Lines of Code - Total</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>103</h2>
+                                <h2>106</h2>
                             </div>
                         </div>
                     </div>
@@ -246,9 +246,9 @@
                             </div>
                             <table class="table">
                                 <tr class="text-success"><td>Errors</td><td>0</td></tr>
-                                <tr class="text-success"><td>Warnings</td><td>0</td></tr>
-                                <tr class="text-success"><td>Information</td><td>0</td></tr>
-                                <tr class="text-success"><td>Total</td><td>0</td></tr>
+                                <tr class="text-success"><td>Warnings</td><td>1</td></tr>
+                                <tr class="text-success"><td>Information</td><td>2</td></tr>
+                                <tr class="text-success"><td>Total</td><td>3</td></tr>
                             </table>
                         </div>
                     </div>
@@ -282,7 +282,7 @@
                                 <h3 class="panel-title"><i class="fa fa-plus-square-o" aria-hidden="true">&nbsp;</i> ScriptAnalyzer Findings - Total</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>0</h2>
+                                <h2>3</h2>
                             </div>
                         </div>
                     </div>
@@ -302,7 +302,7 @@
                                 <h3 class="panel-title"><i class="fa fa-exclamation-triangle" aria-hidden="true">&nbsp;</i> ScriptAnalyzer Warnings</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>0</h2>
+                                <h2>1</h2>
                             </div>
                         </div>
                     </div>
@@ -314,7 +314,7 @@
                                 <h3 class="panel-title"><i class="fa fa-bar-chart" aria-hidden="true">&nbsp;</i> ScriptAnalyzer Findings - Average</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>0</h2>
+                                <h2>0.75</h2>
                             </div>
                         </div>
                     </div>
@@ -324,7 +324,7 @@
                                 <h3 class="panel-title"><i class="fa fa-info-circle" aria-hidden="true">&nbsp;</i> ScriptAnalyzer Info</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>0</h2>
+                                <h2>2</h2>
                             </div>
                         </div>
                     </div>
@@ -356,13 +356,41 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Invoke-ConnectionVariableSet</td>
-                                        <td class="success">0</td>
-                                        <td class=""></td>
+                                        <td>Disable-SSLValidation</td>
+                                        <td class="success">3</td>
+                                        <td class="warning">
+                                            <button type="button" class="btn btn-warning btn-sm cell-expand-collapse"> Expand</button>
+                                            <table>
+                                                 <tr>
+                                                    <td class="warning cell-largeContent">ScriptName : Disable-SSLValidation.ps1<br>
+Line (in the function) : 25<br>
+Severity                      : Warning<br>
+RuleName                      : PSAvoidUsingCmdletAliases<br>
+Message                       : '%' is an alias of 'ForEach-Object'. Alias can introduce possible problems and make scripts hard to maintain. Please consider changing alias to its full content.<br>
+                                                    </td>
+                                                </tr>
+                                                 <tr>
+                                                    <td class="warning cell-largeContent">ScriptName : Disable-SSLValidation.ps1<br>
+Line (in the function) : 11<br>
+Severity                      : Information<br>
+RuleName                      : PSAvoidTrailingWhitespace<br>
+Message                       : Line has trailing whitespace<br>
+                                                    </td>
+                                                </tr>
+                                                 <tr>
+                                                    <td class="warning cell-largeContent">ScriptName : Disable-SSLValidation.ps1<br>
+Line (in the function) : 30<br>
+Severity                      : Information<br>
+RuleName                      : PSAvoidTrailingWhitespace<br>
+Message                       : Line has trailing whitespace<br>
+                                                    </td>
+                                                </tr>
+                                             </table>
+                                        </td>
                                         <td class="success">True</td>
                                     </tr>
                                     <tr>
-                                        <td>Invoke-SSLIgnore</td>
+                                        <td>Invoke-ConnectionVariableSet</td>
                                         <td class="success">0</td>
                                         <td class=""></td>
                                         <td class="success">True</td>
@@ -394,7 +422,7 @@
                                 <h3 class="panel-title"><i class="fa fa-arrows-v" aria-hidden="true">&nbsp;</i> Lines of Code - Total</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>103</h2>
+                                <h2>106</h2>
                             </div>
                         </div>
                     </div>
@@ -426,7 +454,7 @@
                                 <h3 class="panel-title"><i class="fa fa-arrows-v" aria-hidden="true">&nbsp;</i> Lines of Code - Average</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>25.75</h2>
+                                <h2>26.5</h2>
                             </div>
                         </div>
                     </div>
@@ -436,7 +464,7 @@
                                 <h3 class="panel-title"><i class="fa fa-arrows-alt" aria-hidden="true">&nbsp;</i> Complexity - Average</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>2</h2>
+                                <h2>1.75</h2>
                             </div>
                         </div>
                     </div>
@@ -446,7 +474,7 @@
                                 <h3 class="panel-title"><i class="fa fa-object-group" aria-hidden="true">&nbsp;</i> Nesting Depth - Average</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>2.25</h2>
+                                <h2>2</h2>
                             </div>
                         </div>
                     </div>
@@ -468,16 +496,16 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>Disable-SSLValidation</td>
+                                        <td class="success">20</td>
+                                        <td class="success">1</td>
+                                        <td class="success">1</td>
+                                    </tr>
+                                    <tr>
                                         <td>Invoke-ConnectionVariableSet</td>
                                         <td class="success">9</td>
                                         <td class="success">1</td>
                                         <td class="success">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Invoke-SSLIgnore</td>
-                                        <td class="success">17</td>
-                                        <td class="success">2</td>
-                                        <td class="success">2</td>
                                     </tr>
                                     <tr>
                                         <td>New-rVIHeader</td>
@@ -506,7 +534,7 @@
                                 <h3 class="panel-title"><i class="fa fa-list" aria-hidden="true">&nbsp;</i> Number of Tests</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>11</h2>
+                                <h2>10</h2>
                             </div>
                         </div>
                     </div>
@@ -526,7 +554,7 @@
                                 <h3 class="panel-title"><i class="fa fa-check-square-o" aria-hidden="true">&nbsp;</i> Number of Passed Tests</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>11</h2>
+                                <h2>10</h2>
                             </div>
                         </div>
                     </div>
@@ -538,7 +566,7 @@
                                 <h3 class="panel-title"><i class="fa fa-times" aria-hidden="true">&nbsp;</i> Number of Missed Commands</h3>
                             </div>
                             <div class="panel-body">
-                                <h2>2</h2>
+                                <h2>0</h2>
                             </div>
                         </div>
                     </div>
@@ -602,14 +630,14 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Invoke-ConnectionVariableSet</td>
+                                        <td>Disable-SSLValidation</td>
                                         <td class="success">100</td>
                                         <td class="success">0</td>
                                     </tr>
                                     <tr>
-                                        <td>Invoke-SSLIgnore</td>
-                                        <td class="danger">66.67</td>
-                                        <td class="success">2</td>
+                                        <td>Invoke-ConnectionVariableSet</td>
+                                        <td class="success">100</td>
+                                        <td class="success">0</td>
                                     </tr>
                                     <tr>
                                         <td>New-rVIHeader</td>
@@ -696,7 +724,7 @@
                 labels: ["Pass","Fail"],
                 datasets: [
                 {
-                    data: [11,0],
+                    data: [10,0],
                     backgroundColor: ["#a3d48d","#d59595"],
                     hoverBackgroundColor: ["#a3d48d","#d59595"]
                 }]
@@ -730,7 +758,7 @@
                 labels: ["Covered","Missed"],
                 datasets: [
                 {
-                    data: [92.59,7.41],
+                    data: [100,0],
                     backgroundColor: ["#a3d48d","#d59595"],
                     hoverBackgroundColor: ["#a3d48d","#d59595"]
                 }]
@@ -745,7 +773,7 @@
                         center: {
                             // This evaluates the max length of the text
                             maxText: '99.99%',
-                            text: '92.59%',
+                            text: '100%',
                             fontColor: '#d59595',
                             fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
                             fontStyle: 'normal'

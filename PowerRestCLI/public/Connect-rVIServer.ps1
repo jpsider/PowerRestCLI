@@ -43,13 +43,13 @@ function Connect-rVIServer
     try
     {
         # Ensure the PowerShell environment is set up to ignore self signed certs.
-        if (Invoke-SSLIgnore)
+        if (Disable-SSLValidation)
         {
-            # SSL was ignored
+            # SSL Validation was Disabled
         }
         else
         {
-            Write-Error "Unable to Ignore SSL."
+            Write-Error "Unable to Disable SSL Validation."
             return $false
         }
         # Determine the credential type to create appropriate header.
