@@ -39,7 +39,7 @@ Task Publish_Unit_Tests_Coverage {
         return;
     }
     if (Test-Path ENV:Coveralls_Key) {
-        write-Host "the Path Existed, PROGRESS!"
+        write-Host "The Path Existed, PROGRESS!"
         Write-Host "Coveralls_Key: $ENV:Coveralls_Key"
         write-Host "2ndKey try: $($Script:Settings.CoverallsKey)"
         Write-Host "Branch: $ENV:APPVEYOR_REPO_BRANCH"
