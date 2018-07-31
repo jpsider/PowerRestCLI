@@ -43,6 +43,7 @@ Task Publish_Unit_Tests_Coverage {
         Write-Host "Coveralls_Key: $ENV:Coveralls_Key"
         write-Host "2ndKey try: $($Script:Settings.CoverallsKey)"
         Write-Host "Branch: $ENV:APPVEYOR_REPO_BRANCH"
+        gci env: | % Name
     }
     $Coverage = Format-Coverage -PesterResults $TestResults -CoverallsApiToken $ENV:Coveralls_Key -BranchName $ENV:APPVEYOR_REPO_BRANCH
     Publish-Coverage -Coverage $Coverage
