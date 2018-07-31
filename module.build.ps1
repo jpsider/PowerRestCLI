@@ -28,7 +28,7 @@ Task UnitTests {
 
 Task Publish_Unit_Tests_Coverage {
     $TestResults = Invoke-Pester -Path Tests\*\* -CodeCoverage $ModuleName\*\* -PassThru -Tag Build -ExcludeTag Slow
-    if (!(Test-Path Env:Coveralls_Key)) {
+    if (!(Test-Path $ENV:Coveralls_Key)) {
         Write-Host 'Coveralls_Key not set! (Expected on PR Builds.)'
         return;
     }
