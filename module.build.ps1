@@ -7,6 +7,9 @@ $script:ModulePath = "$Destination\$ModuleName.psm1"
 $script:ManifestPath = "$Destination\$ModuleName.psd1"
 $script:Imports = ( 'private', 'public', 'classes' )
 $script:TestFile = "$PSScriptRoot\output\TestResults_PS$PSVersion`_$TimeStamp.xml"
+$Settings = @{
+    CoverallsKey = $ENV:Coveralls_Key
+}
 
 Task Default Build, Pester, UpdateSource, Publish
 Task Build CopyToOutput, BuildPSM1, BuildPSD1
@@ -30,6 +33,7 @@ Task Publish_Unit_Tests_Coverage {
     if (!(Test-Path ENV:Coveralls_Key)) {
         Write-Host 'Coveralls_Key not set! (Expected on PR Builds.)'
         Write-Host "Coveralls_Key: $ENV:Coveralls_Key"
+        write-Host "2ndKey try: $Settings.CoverallsKey"
         Write-Host "Branch: $ENV:APPVEYOR_REPO_BRANCH"
         Write-host "NugetKey: $ENV:NugetApiKey"
         return;
