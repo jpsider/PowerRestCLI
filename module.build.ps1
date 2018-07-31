@@ -7,7 +7,7 @@ $script:ModulePath = "$Destination\$ModuleName.psm1"
 $script:ManifestPath = "$Destination\$ModuleName.psd1"
 $script:Imports = ( 'private', 'public', 'classes' )
 $script:TestFile = "$PSScriptRoot\output\TestResults_PS$PSVersion`_$TimeStamp.xml"
-$Settings = @{
+$script:Settings = @{
     CoverallsKey = $ENV:Coveralls_Key
 }
 
