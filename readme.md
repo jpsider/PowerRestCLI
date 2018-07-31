@@ -4,7 +4,9 @@ Powershell Module providing Examples that consume vSphere Rest API
 
 ## Build Status  
 
-![Build status](https://ci.appveyor.com/api/projects/status/github/jpsider/PowerRestCLI?branch=master&svg=true)  
+[![Build status](https://ci.appveyor.com/api/projects/status/github/jpsider/PowerRestCLI?branch=master&svg=true)](https://ci.appveyor.com/project/JustinSider/powerrestcli)
+[![PS Gallery](https://img.shields.io/badge/install-PS%20Gallery-blue.svg)](https://www.powershellgallery.com/packages/PowerRestCLI/)
+[![Coverage Status](https://coveralls.io/repos/github/jpsider/PowerRestCLI/badge.svg?branch=master)](https://coveralls.io/github/jpsider/PowerRestCLI?branch=master)
 
 ## Notice  
 

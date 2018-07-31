@@ -7,6 +7,7 @@ $script:ModulePath = "$Destination\$ModuleName.psm1"
 $script:ManifestPath = "$Destination\$ModuleName.psd1"
 $script:Imports = ( 'private', 'public', 'classes' )
 $script:TestFile = "$PSScriptRoot\output\TestResults_PS$PSVersion`_$TimeStamp.xml"
+$script:CoverallsKey = $env:Coveralls_Key
 
 Task Default Build, Pester, UpdateSource, Publish
 Task Build CopyToOutput, BuildPSM1, BuildPSD1
@@ -18,11 +19,16 @@ Task Clean {
 }
 
 Task UnitTests {
-    $TestResults = Invoke-Pester -Path Tests\*unit* -PassThru -Tag Build -ExcludeTag Slow
+    $TestResults = Invoke-Pester -Path Tests\*\* -CodeCoverage $ModuleName\*\* -PassThru -Tag Build -ExcludeTag Slow
     if ($TestResults.FailedCount -gt 0)
     {
         Write-Error "Failed [$($TestResults.FailedCount)] Pester tests"
     }
+}
+
+Task Publish_Unit_Tests_Coverage {
+    $Coverage = Format-Coverage -PesterResults $TestResults -CoverallsApiToken $CoverallsKey -BranchName master
+    Publish-Coverage -Coverage $Coverage
 }
 
 Task FullTests {
