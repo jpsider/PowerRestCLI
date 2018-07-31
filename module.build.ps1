@@ -11,7 +11,7 @@ $script:CoverallsKey = $env:Coveralls_Key
 
 Task Default Build, Pester, UpdateSource, Publish
 Task Build CopyToOutput, BuildPSM1, BuildPSD1
-Task Pester Build, ImportModule, UnitTests, FullTests
+Task Pester Build, ImportModule, UnitTests, FullTests, Publish_Unit_Tests_Coverage
 
 Task Clean {
     $null = Remove-Item $Output -Recurse -ErrorAction Ignore
