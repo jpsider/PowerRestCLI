@@ -31,6 +31,7 @@ Task Publish_Unit_Tests_Coverage {
         Write-Host 'Coveralls_Key not set! (Expected on PR Builds.)'
         Write-Host "Coveralls_Key: $ENV:Coveralls_Key"
         Write-Host "Branch: $ENV:APPVEYOR_REPO_BRANCH"
+        Write-host "NugetKey: $ENV:NugetApiKey"
         return;
     }
     $Coverage = Format-Coverage -PesterResults $TestResults -CoverallsApiToken ENV:Coveralls_Key -BranchName $ENV:APPVEYOR_REPO_BRANCH
