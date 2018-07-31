@@ -8,7 +8,7 @@ $script:ManifestPath = "$Destination\$ModuleName.psd1"
 $script:Imports = ( 'private', 'public', 'classes' )
 $script:TestFile = "$PSScriptRoot\output\TestResults_PS$PSVersion`_$TimeStamp.xml"
 
-# Importing all build settings into the current scope
+# Importing all build settings into the current scope for coveralls integration
 . '.\PowerRestCLI.BuildSettings.ps1'
 
 Task Default Build, Pester, UpdateSource, Publish
