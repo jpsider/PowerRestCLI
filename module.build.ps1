@@ -32,8 +32,8 @@ Task Publish_Unit_Tests_Coverage {
     $TestResults = Invoke-Pester -Path Tests\*\* -CodeCoverage $ModuleName\*\* -PassThru -Tag Build -ExcludeTag Slow
     if (!(Test-Path ENV:Coveralls_Key)) {
         Write-Host 'Coveralls_Key not set! (Expected on PR Builds.)'
-        Write-Host "Coveralls_Key: $ENV:Coveralls_Key"
-        write-Host "2ndKey try: $Settings.CoverallsKey"
+        Write-Host "Coveralls_Key: $ENV:CoverallsKey"
+        write-Host "2ndKey try: $Script:Settings.CoverallsKey"
         Write-Host "Branch: $ENV:APPVEYOR_REPO_BRANCH"
         Write-host "NugetKey: $ENV:NugetApiKey"
         return;
