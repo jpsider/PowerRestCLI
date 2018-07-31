@@ -28,7 +28,7 @@ Task UnitTests {
 
 Task Publish_Unit_Tests_Coverage {
     $TestResults = Invoke-Pester -Path Tests\*\* -CodeCoverage $ModuleName\*\* -PassThru -Tag Build -ExcludeTag Slow
-    $Coverage = Format-Coverage -PesterResults $TestResults -CoverallsApiToken $CoverallsKey -BranchName master
+    $Coverage = Format-Coverage -PesterResults $TestResults -CoverallsApiToken "mEc96EYA2VhpZkao8OYyoyPGCE788skkc+mMIzZqknGllpiEpUHoB6yRGkwquFaBygVa4Hy" -BranchName master
     Publish-Coverage -Coverage $Coverage
 }
 
