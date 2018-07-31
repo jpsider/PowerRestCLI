@@ -7,7 +7,7 @@ $script:ModulePath = "$Destination\$ModuleName.psm1"
 $script:ManifestPath = "$Destination\$ModuleName.psd1"
 $script:Imports = ( 'private', 'public', 'classes' )
 $script:TestFile = "$PSScriptRoot\output\TestResults_PS$PSVersion`_$TimeStamp.xml"
-$script:CoverallsKey = $env:Coveralls_Key
+$script:Coveralls_Key = $ENV:Coveralls_Key
 
 Task Default Build, Pester, UpdateSource, Publish
 Task Build CopyToOutput, BuildPSM1, BuildPSD1
@@ -28,7 +28,11 @@ Task UnitTests {
 
 Task Publish_Unit_Tests_Coverage {
     $TestResults = Invoke-Pester -Path Tests\*\* -CodeCoverage $ModuleName\*\* -PassThru -Tag Build -ExcludeTag Slow
-    $Coverage = Format-Coverage -PesterResults $TestResults -CoverallsApiToken "mEc96EYA2VhpZkao8OYyoyPGCE788skkc+mMIzZqknGllpiEpUHoB6yRGkwquFaBygVa4Hy" -BranchName master
+    if (!(Test-Path Env:Coveralls_Key)) {
+        Write-Host 'Coveralls_Key not set! (Expected on PR Builds.)'
+        return;
+    }
+    $Coverage = Format-Coverage -PesterResults $TestResults -CoverallsApiToken $Coveralls_Key -BranchName $ENV:APPVEYOR_REPO_BRANCH
     Publish-Coverage -Coverage $Coverage
 }
 
