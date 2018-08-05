@@ -8,6 +8,10 @@ Powershell Module providing Examples that consume vSphere Rest API
 [![PS Gallery](https://img.shields.io/badge/install-PS%20Gallery-blue.svg)](https://www.powershellgallery.com/packages/PowerRestCLI/)
 [![Coverage Status](https://coveralls.io/repos/github/jpsider/PowerRestCLI/badge.svg?branch=master)](https://coveralls.io/github/jpsider/PowerRestCLI?branch=master)
 
+## Docs  
+
+[Help](https://github.com/jpsider/PowerRestCLI/tree/master/docs)
+
 ## Notice  
 
 ### This is NOT an attempt to replace PowerCLI, It is intended to be a learning platform for PowerShell users to get started with to explore vSphere API via a familiar tool (PowerShell).  
