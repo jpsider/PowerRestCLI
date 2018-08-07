@@ -11,7 +11,7 @@ Powershell Module providing Examples that consume vSphere Rest API
 
 ## Docs  
 
-[Help](https://github.com/jpsider/PowerRestCLI/tree/master/docs)
+[Help](http://powerrestcli.readthedocs.io/en/latest/?badge=latest)
 
 ## Notice  
 
