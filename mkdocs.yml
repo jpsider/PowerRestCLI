@@ -1,11 +1,12 @@
 site_name: PowerRestCLI
 repo_url: https://github.com/jpsider/PowerRestCLI
 theme: readthedocs
+edit_uri: edit/master/docs/
 pages:
 - Home: index.md
 - PowerRestCLI Basics:
   - What is PowerRestCLI: about.md
   - Quick Start: Quick-Start-Installation-and-Example.md
-- Basic Commands:
-- Examples:
-- Acknowledgements: acknowledgements.md
+- Public Functions:
+  - Connect-rViServer: Connect-rVIServer.md
+  - Get-rVM: Get-rVM.md
