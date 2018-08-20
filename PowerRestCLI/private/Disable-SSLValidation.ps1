@@ -30,4 +30,5 @@ function Disable-SSLValidation
 
     # Disable SSL certificate validation
     [System.Net.ServicePointManager]::CertificatePolicy = New-Object IgnoreCerts
+    return $true
 }

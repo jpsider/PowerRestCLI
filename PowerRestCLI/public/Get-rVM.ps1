@@ -7,15 +7,15 @@ function Get-rVM
         Perform Rest API call to retrieve VM information from vCenter.
     .PARAMETER vCenter
         A valid vCenter IP/Name is required at this time.
-    .PARAMETER Headers
-        Valid Headers need to be passed in.
-    .PARAMETER Session
-        Valid Session needs to be passed in.
     .EXAMPLE
         $vms = Get-rVM
 	.NOTES
 		No notes.
     #>
+    param(
+        [Parameter(Mandatory = $false)]
+        [string]$vCenter
+    )
     begin
     {
         # Perform RestAPI call to vCenter to retrieve VM data.
