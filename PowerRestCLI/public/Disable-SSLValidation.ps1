@@ -10,6 +10,8 @@ function Disable-SSLValidation
     .NOTES
         Reflection is ideal in situations when a script executes in an environment in which you cannot call csc.ese to compile source code.
         If compiling code is an option, then implementing System.Net.ICertificatePolicy in C# and Add-Type is trivial.
+    .EXAMPLE
+        Disable-SSLValidation
     .LINK
         http://www.exploit-monday.com
     #>
