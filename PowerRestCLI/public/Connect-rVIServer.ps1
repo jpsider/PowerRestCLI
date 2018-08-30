@@ -49,8 +49,7 @@ function Connect-rVIServer
         }
         else
         {
-            Write-Error "Unable to Disable SSL Validation."
-            return $false
+            Throw "Connect-rVIServer: Unable to Disable SSL Validation."
         }
         # Determine the credential type to create appropriate header.
         if ($PSCmdlet.ParameterSetName -eq 'NoCreds')
@@ -61,40 +60,30 @@ function Connect-rVIServer
         elseif ($PSCmdlet.ParameterSetName -eq 'PlainText')
         {
             # User passed in Username/Password combo.
-            $Credential = New-Object System.Management.Automation.PSCredential -ArgumentList ($user, $Password)
+            $Credential = New-Object System.Management.Automation.PSCredential -ArgumentList ($User, $Password)
         }
         else
         {
             # User provided Credential Variable, No action needed.
         }
         # Insert the Credentials into the Header
-        $script:headers = New-rViHeader -Credential $Credential
-        # Validate that the headers are not empty.
-        if ($script:headers -eq $false)
-        {
-            Write-Error "Unable to create Header."
-            return $false
-        }
+        $script:headers = New-rVIHeader -Credential $Credential
+
         # Perform a Rest call and retrieve a token.
         $script:session = New-rVisession -headers $script:headers -vCenter $vCenter
-        if ($script:session -eq $false)
-        {
-            Write-Error "Unable to establish session."
-            return $false
-        }
         $User = $Credential.UserName
         $vCenterReturn = New-Object -TypeName PSObject
         $vCenterReturn | Add-Member -MemberType NoteProperty -Name Name -Value $vCenter
         $vCenterReturn | Add-Member -MemberType NoteProperty -Name Port -Value "443"
         $vCenterReturn | Add-Member -MemberType NoteProperty -Name User -Value $User
         # Return vCenter connection information.
+        $script:vCenter = $vCenter
         $vCenterReturn
     }
     Catch
     {
         $ErrorMessage = $_.Exception.Message
         $FailedItem = $_.Exception.ItemName
-        Write-Error "Error: $ErrorMessage $FailedItem"
-        BREAK
+        Throw "Connect-rVIServer: $ErrorMessage $FailedItem"
     }
 }

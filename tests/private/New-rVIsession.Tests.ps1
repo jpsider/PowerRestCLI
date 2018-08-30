@@ -24,9 +24,8 @@ Describe "New-rVIsession function for $moduleName" -Tags Build {
             return $null
         }
         Mock -CommandName 'Write-Error' -MockWith {}
-        New-rVIsession -headers $script:headers -vCenter $script:vCenter | Should be $false
+        {New-rVIsession -headers $script:headers -vCenter $script:vCenter} | Should Throw
         Assert-MockCalled -CommandName 'Invoke-RestMethod' -Times 2 -Exactly
-        Assert-MockCalled -CommandName 'Write-Error' -Times 1 -Exactly
     }    
     It "Should Return false if -whatif is used." {
         New-rVIsession -headers $script:headers -vCenter $script:vCenter -whatif| Should be $false

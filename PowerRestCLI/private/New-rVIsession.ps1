@@ -43,8 +43,7 @@ function New-rVIsession
             else
             {
                 # No token returned.
-                Write-Error "No token returned."
-                return $false
+                Throw "New-rVIsession: No token returned."
             }
         }
         else

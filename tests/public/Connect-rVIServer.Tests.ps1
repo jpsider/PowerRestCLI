@@ -18,29 +18,25 @@ Describe "Connect-rVIServer function for $moduleName" -Tags Build {
     }
     $secpasswd = ConvertTo-SecureString "PlainTextPassword" -AsPlainText -Force
     $fakeCreds = New-Object System.Management.Automation.PSCredential ("FakeUser", $secpasswd)    
-    It "Should Return false, if Disable-SSLValidation fails." {
+    It "Should Throw, if Disable-SSLValidation fails." {
         Mock -CommandName 'Disable-SSLValidation' -MockWith {
             return $false
         }
-        Mock -CommandName 'Write-Error' -MockWith {}
-        Connect-rVIServer -vCenter "FakevCenter" | Should be $false
+        {Connect-rVIServer -vCenter "FakevCenter"} | Should Throw
         Assert-MockCalled -CommandName 'Disable-SSLValidation' -Times 1 -Exactly
-        Assert-MockCalled -CommandName 'Write-Error' -Times 1 -Exactly
     }
-    It "Should Return false, if New-rVIheader fails." {
+    It "Should Throw, if New-rVIheader fails." {
         Mock -CommandName 'Disable-SSLValidation' -MockWith {
             return $true
         }
-        Mock -CommandName 'New-rViHeader' -MockWith {
-            return $false
+        Mock -CommandName 'New-rVIHeader' -MockWith {
+            Throw "Unable to create headers"
         }
-        Mock -CommandName 'Write-Error' -MockWith {}
-        Connect-rVIServer -vCenter "FakevCenter" -Credential $fakeCreds | Should be $false
+        {Connect-rVIServer -vCenter "FakevCenter" -Credential $fakeCreds} | Should Throw
         Assert-MockCalled -CommandName 'Disable-SSLValidation' -Times 2 -Exactly
         Assert-MockCalled -CommandName 'New-rViHeader' -Times 1 -Exactly        
-        Assert-MockCalled -CommandName 'Write-Error' -Times 2 -Exactly
     }
-    It "Should Return false, if New-rVIsession fails." {
+    It "Should Throw, if New-rVIsession fails." {
         Mock -CommandName 'Disable-SSLValidation' -MockWith {
             return $true
         }
@@ -48,13 +44,12 @@ Describe "Connect-rVIServer function for $moduleName" -Tags Build {
             return $true
         }
         Mock -CommandName 'New-rVIsession' -MockWith {
-            return $false
+            Throw "New-rVISession has failed."
         }
-        Connect-rVIServer -vCenter "FakevCenter" -Credential $fakeCreds | Should be $false
+        {Connect-rVIServer -vCenter "FakevCenter" -Credential $fakeCreds} | Should Throw
         Assert-MockCalled -CommandName 'Disable-SSLValidation' -Times 3 -Exactly
         Assert-MockCalled -CommandName 'New-rViHeader' -Times 2 -Exactly        
-        Assert-MockCalled -CommandName 'New-rVIsession' -Times 1 -Exactly
-        Assert-MockCalled -CommandName 'Write-Error' -Times 3 -Exactly      
+        Assert-MockCalled -CommandName 'New-rVIsession' -Times 1 -Exactly     
     }
     It "Should Return vCenter Object." {
         Mock -CommandName 'Disable-SSLValidation' -MockWith {
@@ -90,9 +85,8 @@ Describe "Connect-rVIServer function for $moduleName" -Tags Build {
         Mock -CommandName 'Disable-SSLValidation' -MockWith {
             return $true
         }
-        function Get-Credential
-        { 
-            return @{UserName = 'FakeUser'}
+        Mock -CommandName 'Get-Credential' -MockWith { 
+            return $fakeCreds
         }       
         Mock -CommandName 'New-rVIHeader' -MockWith {
             return $true

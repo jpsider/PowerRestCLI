@@ -11,10 +11,8 @@ Describe "Get-rVM function for $moduleName" -Tags Build {
         Mock -CommandName 'Invoke-RestMethod' -MockWith {
             return $null
         }
-        Mock -CommandName 'Write-Error' -MockWith {}
-        Get-rVM | Should be $false
+        {Get-rVM} | Should Throw
         Assert-MockCalled -CommandName 'Invoke-RestMethod' -Times 1 -Exactly
-        Assert-MockCalled -CommandName 'Write-Error' -Times 1 -Exactly        
     }
     It "Should Return the VM objects." {
         Mock -CommandName 'Invoke-RestMethod' -MockWith {
@@ -41,9 +39,27 @@ Describe "Get-rVM function for $moduleName" -Tags Build {
             $CrapData = "hodgepodge"
             return $CrapData
         }
-        Mock -CommandName 'Write-Error' -MockWith {}
-        Get-rVM | Should be $false
-        Assert-MockCalled -CommandName 'Invoke-RestMethod' -Times 3 -Exactly
-        Assert-MockCalled -CommandName 'Write-Error' -Times 2 -Exactly        
+        {Get-rVM} | Should Throw
+        Assert-MockCalled -CommandName 'Invoke-RestMethod' -Times 3 -Exactly        
+    }
+    It "Should Return the VM objects. (Not Throw)" {
+        Mock -CommandName 'Invoke-RestMethod' -MockWith {
+            $RawReturn = @{
+                value = @{
+                    name            = 'testvm'
+                    Power_State     = 'POWERED_ON'
+                    cpu_count       = '2'
+                    memory_size_MiB = '10240'
+                }               
+            }
+            $ReturnJson = $RawReturn | ConvertTo-Json
+            $ReturnData = $ReturnJson | convertfrom-json
+            return $ReturnData
+        }
+        Mock -CommandName 'Format-Table' -MockWith {
+            return '@{memory_size_MiB=10240; cpu_count=2; name=testvm; Power_State=POWERED_ON}'
+        }        
+        {Get-rVM} | Should not Throw
+        Assert-MockCalled -CommandName 'Invoke-RestMethod' -Times 4 -Exactly
     }
 }
